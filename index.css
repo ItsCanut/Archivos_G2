@@ -1,0 +1,203 @@
+@import url("//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css");
+
+
+
+body {
+    background-color: aliceblue;
+}
+
+#botoncito {
+    line-height: 30px;
+    font-size: 17px;
+}
+
+#myDIV {
+    max-width: 100%;
+    padding: 50px 0;
+    text-align: center;
+    margin-top: 20px;
+    visibility:hidden;
+}
+
+
+.mainBox {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainBox > div {
+    text-align: left;
+    line-height: 30px;
+    font-size: 17px;
+    margin: 20px;
+}
+
+.button {
+    line-height: 30px;
+    font-size: 17px;
+    margin-left: 30%;
+    margin-top: 8%;
+    margin-bottom: 8%;
+}
+
+footer {
+    padding: 3rem;
+    clear: left;
+    text-align: center;
+    background-color: cadetblue;
+    width: 100%;
+    margin-top: 40px;
+    
+    
+}
+
+#logo {
+    align-content: center;
+}
+
+#mensajeError {
+    margin-top: 20%;
+    color: crimson;
+}
+
+h2 {
+    font-size: 22px;
+}
+
+section {
+
+    max-width: 300px;
+    align-items: center;
+    text-align: center;
+    margin: 0px auto;
+    style: none;
+
+}
+
+
+
+#boton {
+    margin: 50px;
+}
+
+
+
+
+#botonacceder {
+    align-content: center;
+    font-size: 35px;
+    margin: 20px;
+}
+
+#mensajeError {
+    color: crimson;
+    border: ridge crimson 1px;
+}
+
+
+
+
+
+
+
+.BoxContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100vw;
+    height: 500px;
+}
+
+
+
+.tarjeta {
+    width: 90%;
+    margin-top: 85px;
+}
+
+
+.tarjeta-titulo {
+    text-transform: uppercase;
+    font-size: 0.8em;
+    width: 100%;
+    display: block;
+    margin: 10px 0;
+}
+
+.tarjeta-contenido {
+    display: flex;
+    flex-direction: row;
+    background-color: #ffffff;
+    text-align: center;
+    position: relative;
+    height: 500px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: -1px 8px 33px -5px rgba(0, 0, 0, 0.75);
+}
+
+.tarjeta-contenido-izquierda {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    flex: 1 1 50%;
+    padding: 19px 15px;
+}
+
+
+.tarjeta-contenido-derecha {
+    flex: 1 1 50%;
+    background-color: #d9d6d5;
+    border-radius: 0 0 0 0;
+}
+
+#recuperarContra {
+    color: #000000;
+    border: ridge crimson 1px;
+}
+
+#grafica {
+    max-width: 700px;
+}
+
+
+#whiteText {
+    color: aliceblue;
+}
+
+.iconoOpciones{
+    width: 50px;
+    height: 50px;
+}
+
+
+#formulario {
+
+            text-align: center;
+        }
+
+        #boton_acceder {
+            margin: 30px 20px 30px;
+            font-size: 25px;
+            font-family: sans-serif;
+            border-radius: 10px;
+            background: rgba(90, 138, 214, 0.65);
+            font
+        }
+
+        div.banner {
+            text-align: center;
+            align-items: center;
+        }
+
+ #botonAceptar {
+            margin: 30px 20px 30px;
+            font-size: 25px;
+            font-family: sans-serif;
+            border-radius: 10px;
+            background: rgba(90, 138, 214, 0.65);
+            font
+        }
