@@ -38,8 +38,8 @@
     <div>
 
       <form id="formulario" action='lobby.html' method="get">
-        Usuario:<br>
-        <input type="text" id="username"><br> Contraseña:
+        Email:<br>
+        <input type="text" id="email"><br> Contraseña:
         <br>
         <input type="password" id="password"><br>
 
@@ -57,12 +57,12 @@
   <script>
     //Aqui hay que poner un script mediante AJAX con el que         alternativa Ajax a js es6
     function procesarLogin() {
-      var usuario = document.getElementById("username").value;
+      var email = document.getElementById("email").value;
       var contrasenya = document.getElementById("password").value;
-      if (usuario == "" || contrasenya == "") {
+      if (email == "" || contrasenya == "") {
         alert("Es obligatorio rellenar todos los campos");
       } else {
-        fetch('/login?user=' + usuario + '&password=' + contrasenya, {
+        fetch('/login?email=' + email + '&password=' + contrasenya, {
           method: 'post'
         }).then(function(respuesta) {
           return respuesta.json();
@@ -73,7 +73,7 @@
             sessionStorage.setItem('Usuario', JSON.stringify(son));
             console.log(son.usuario.activo);
             if (son.usuario.activo == 0) {
-              window.location.href = '/paginas/datosUsuario.html';
+              window.location.href = '/paginas/RestablecerContraseña.html';
             } else {
               window.location.href = "/paginas/lobby.html";
             }//else
