@@ -15,6 +15,8 @@
 </body>
 <script>
   var mapa;
+  var marcadores = [];
+  var zona = {};
 
   function iniciarMap() {
     mapa = new google.maps.Map(document.getElementById("mapa"), {
@@ -27,15 +29,15 @@
     });
 
     mapa.setMapTypeId('hybrid');
-    getSensores();
+    var zonas = [];
+    getSensores(mapa);
   } //iniciarMap
 
-  function CargarZonas(índice) {
+  function CargarZonas(índice, arrayZonas) {
     fetch('/zona?id=' + índice).then(function(respuesta) {
       return respuesta.json();
     }).then(function(datos) {
       console.log(datos);
-      var zona = {};
       var limites = new google.maps.LatLngBounds();
       datos.vertices.forEach(function(vertice) {
         vertice.lat = parseFloat(vertice.lat);
@@ -56,14 +58,20 @@
     });
   }
 
-  function getSensores() {
+  function getSensores(mapa) {
     fetch('/sensores').then(function(respuesta) {
       return respuesta.json()
     }).then(function(res) {
       if (res.status > 400) {
         alert('Error de servidor');
       } else {
-        console.log(res);
+        for (let i = 0; i < res.length; i++) {
+          marcadores[i] = new google.maps.Marker({
+            position: res[i],
+            map: mapa,
+            title: 'Sensor ' + JSON.stringify(i + 1)
+          })
+        }
       } //else
     }) //then
   } //getSensores
