@@ -28,6 +28,8 @@ servidor.post('/cambioContrasenya', cambiarContrasenya);
 
 servidor.get('/zona', getZona)
 
+servidor.get('/sensores', getSensores)
+
 //servidor.get('/lobby', procesarUsuario);
 //BASE DATOS
 var sqlite3 = require('sqlite3');
@@ -71,7 +73,6 @@ function procesar_login(peticion, respuesta) {
         } //else
       } //else
     } //else
-    console.log(row);
   } //procesar_login2
   base_datos.get('SELECT * FROM usuarios WHERE email=?', [peticion.query.email], procesar_login2);
 
@@ -98,11 +99,11 @@ function getZona(peticion, respuesta) {
   var vertices;
   base_datos.get('SELECT * from Zona WHERE id=' + peticion.query.id, function(err, res) {
     if (err != null) {
-      console.log('Error de zona')
+      respuesta.sendStatus(500);
     } else {
       base_datos.all('SELECT * from Vertice WHERE zonaId=' + peticion.query.id, function(error, array) {
         if (error != null) {
-          console.log('Error de vertice: ' + error);
+          respuesta.sendStatus(500);
         } else {
          respuesta.send({
            zona: res,
@@ -113,7 +114,17 @@ function getZona(peticion, respuesta) {
     } //else
   })//base_datos.get
 }//getZona
-
+//----------------------------------------------------------------------------------
+//FUNCIÓN QUE DEVUELVE LOS SENSORES DE LA BASE DE datos
+function getSensores(peticion, respuesta) {
+  base_datos.all('SELECT * FROM sensores', function(err,res){
+    if(err != null) {
+      respuesta.sendStatus(500);
+    } else {
+      respuesta.send(res);
+    } //else
+  }) //base_datos.all
+}//getSensores
 
 servidor.listen(50971, function() {
   console.log('En marcha');
