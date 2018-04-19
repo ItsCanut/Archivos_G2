@@ -43,6 +43,11 @@
     <script src="js/cookies.js"></script>
 
 
+    <!-- incluir las gráficas -->
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
 </head>
 
 <body>
@@ -50,13 +55,14 @@
     <header>
         <div class="container">
 
-            <h1 class="logo_header">softfields</h1>
+            <h1 class="logo_header"><a href="lobby.html">softfields</a></h1>
 
             <nav class="site-nav">
                 <ul>
                     <li><a href="lobby.html"><i class="fa fa-home site-nav--icon"></i>Menu</a></li>
                     <li><a href="datosUsuario.html"><i class="fa fa-info site-nav--icon"></i>Datos</a></li>
                     <li><a href="RestablecerContrase%C3%B1a.html"><i class="fa fa-cog site-nav--icon"></i>Opciones</a></li>
+                    <li><a href="InicioSesion.html" RestablecerContrase%C3%B1a.html ""><i class="fa fa-cog site-nav--icon"></i>Cerrar Sesión</a></li>
 
 
                 </ul>
@@ -81,34 +87,18 @@
             <!-- Contenedor para el listado de zonas -->
             <div id="listaZonas">
                 <div class="btn-group btn-group-sm" role="group" style="margin-bottom: 5px;">
-                    <button class="btn btn-light" style="background-color: rgba(131,54,201,0.35)" onclick="focusZona(1)">Campo de alcachofas</button>
+                    <button class="btn btn-light" style="background-color: rgba(131,54,201,0.35)" onclick="focusZona(1)">Campo A</button>
                     <button class="btn btn-secondary" style="width:40px" onclick="cargarZona(1)">
-                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                <i class="fa fa-eye" ></i>
             </button>
-                    <div class="btn-group" role="group" style="width:60px">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-cog" aria-hidden="true"></i>
-                </button>
-                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                            <a class="dropdown-item" href="javascript:editZona(1)"><i class="fa fa-edit" aria-hidden="true"></i> Editar</a>
-                            <a class="dropdown-item text-danger" href="javascript:deleteZona(1)"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</a>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="btn-group btn-group-sm" role="group" style="margin-bottom: 5px;">
-                    <button class="btn btn-light" style="background-color: rgba(255,128,0,0.35)" onclick="focusZona(6)">Campo de trigo</button>
+                    <button class="btn btn-light" style="background-color: rgba(255,128,0,0.35)" onclick="focusZona(6)">Campo B</button>
                     <button class="btn btn-secondary" style="width:40px" onclick="cargarZona(6)">
-                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                <i class="fa fa-eye"></i>
             </button>
-                    <div class="btn-group" role="group" style="width:60px">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-cog" aria-hidden="true"></i>
-                </button>
-                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                            <a class="dropdown-item" href="javascript:editZona(6)"><i class="fa fa-edit" aria-hidden="true"></i> Editar</a>
-                            <a class="dropdown-item text-danger" href="javascript:deleteZona(6)"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -129,42 +119,59 @@
 
                 <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> Sonda1</h6>
                 <a class="dropdown-item" href="#!" onclick="myFunction()"></a>
-                <a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">guapooooo!</button></a>
                 <a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 1</button></a>
-                <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> Joan tio bo</h6><a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 1</button></a><a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">raquel guapa</button></a>
+                <a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 2</button></a>
+                <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> Sonda 2</h6><a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 4</button></a><a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 5</button></a>
             </div>
         </div>
 
 
         <div class="dropdown open btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Campo1
+    Campo2
   </button>
             <div class="dropdown-menu" style="margin-bottom: 5px; margin-right: 5px">
 
-                <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> Prexioso</h6>
+                <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> Sonda 3</h6>
                 <a class="dropdown-item" href="#!" onclick="myFunction()"></a>
-                <a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 1</button></a>
-                <a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 1</button></a>
-                <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> aloh juapo</h6><a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">yaaas!</button></a><a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 1</button></a>
+                <a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 5</button></a>
+                <a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 6</button></a>
+                <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> Sonda 4</h6><a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 7</button></a><a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 8</button></a>
             </div>
         </div>
 
 
         <div class="dropdown open btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Campo1
+    Campo3
   </button>
             <div class="dropdown-menu" style="margin-bottom: 5px; margin-right: 5px">
 
-                <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> Sonda1</h6>
+                <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> Sonda 5</h6>
                 <a class="dropdown-item" href="#!" onclick="myFunction()"></a>
-                <a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">ya paro </button></a>
-                <a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 1</button></a>
-                <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> Sonda2</h6><a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">adioh</button></a><a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 1</button></a>
+                <a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 9 </button></a>
+                <a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 10</button></a>
+                <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> Sonda 6</h6><a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 11</button></a><a class="dropdown-item" href="#!" onclick="myFunction()"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" onclick="focusSensor(1)">Sensor 12</button></a>
             </div>
         </div>
     </div>
+
+
+
+
+
+
+    <div id="panelMapa" class="panel"></div>
+
+
+    <div id="panelGraficas" class="panel">
+        <div id="chart_div"></div>
+    </div>
+
+
+
+
+
     <footer>Copyright © Grupo 2 grado GTI</footer>
 
 
@@ -219,7 +226,6 @@
             var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
             chart.draw(data, options);
         }
-
     </script>
 
 
@@ -227,39 +233,36 @@
 
 
     <script>
-        var usuario = sessionStorage.getItem('Usuario');
-        if (usuario === null) {
-            window.location.href = '/paginas/InicioSesion.html';
-        }
-
-        function cerrarSesion() {
-            sessionStorage.removeItem('Usuario');
-            window.location.href = '/paginas/InicioSesion.html';
-        }
-
-        $(document).ready(function() {
-            $('a[href="#navbar-more-show"], .navbar-more-overlay').on('click', function(event) {
-                event.preventDefault();
-                $('body').toggleClass('navbar-more-show');
-                if ($('body').hasClass('navbar-more-show')) {
-                    $('a[href="#navbar-more-show"]').closest('li').addClass('active');
-                } else {
-                    $('a[href="#navbar-more-show"]').closest('li').removeClass('active');
+                var usuario = sessionStorage.getItem('Usuario');
+                if (usuario === null) {
+                    window.location.href = '/paginas/InicioSesion.html';
                 }
-                return false;
-            });
-        });
 
-        function myFunction() {
-            var x = document.getElementById("myDIV");
-            x.style.visibility = "visible";
-        }
+                function cerrarSesion() {
+                    sessionStorage.removeItem('Usuario');
+                    window.location.href = '/paginas/InicioSesion.html';
+                }
 
+                $(document).ready(function() {
+                    $('a[href="#navbar-more-show"], .navbar-more-overlay').on('click', function(event) {
+                        event.preventDefault();
+                        $('body').toggleClass('navbar-more-show');
+                        if ($('body').hasClass('navbar-more-show')) {
+                            $('a[href="#navbar-more-show"]').closest('li').addClass('active');
+                        } else {
+                            $('a[href="#navbar-more-show"]').closest('li').removeClass('active');
+                        }
+                        return false;
+                    });
+                });
+
+                function myFunction() {
+                    var x = document.getElementById("myDIV");
+                    x.style.visibility = "visible";
+                }
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js">
-
-
     </script>
     <script>
         $('.menu-toggle').click(function() {
@@ -268,7 +271,6 @@
             $(this).toggleClass('open');
 
         })
-
     </script>
 </body>
 

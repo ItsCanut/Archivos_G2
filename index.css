@@ -24,7 +24,7 @@ header::after {
 
 
 .container {
-    width: 95%;
+    width: 99%;
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -339,7 +339,7 @@ footer {
     text-align: center;
     color: aliceblue;
     background-color: #464655;
-    width: 100%;
+    width: 99%;
     margin-top: 40px;
     position: absolute;
     bottom: 0;
@@ -386,6 +386,9 @@ footer {
 
 /* -- Elementos incluidos en el lobby -- */
 
+
+
+
 .panel {
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -394,14 +397,34 @@ footer {
     box-sizing: border-box;
 }
 
+
 #panelZonas {
 
     position: absolute;
     top: 80px;
     left: 10px;
-    bottom: 10px;
     width: 300px;
 }
+
+
+#panelMapa {
+    position: absolute;
+    top: 70px;
+    bottom: 470px;
+    left: 330px;
+    
+}
+
+
+#panelGraficas {
+    position: absolute;
+    bottom: 100px;
+    top: 430px;
+    left: 10px;
+    right: 10px;
+    width: 95%;
+}
+
 
 #menuEdicion {
     position: absolute;
