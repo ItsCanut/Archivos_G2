@@ -52,7 +52,11 @@
             sessionStorage.setItem('Usuario', JSON.stringify(son));
             console.log(son.usuario.activo);
             if (son.usuario.activo == 0) {
+              fetch('/volverUsuarioActivo?id=' + son.usuario.id,{
+                method:'post'
+              });
               window.location.href = 'RestablecerContraseña.html';
+
             } else {
               window.location.href = "lobby.html";
             } //else
