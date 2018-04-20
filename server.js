@@ -30,6 +30,8 @@ servidor.get('/zona', getZona)
 
 servidor.get('/sensores', getSensores)
 
+servidor.post('/volverUsuarioActivo', turnUsuarioActivo);
+
 //servidor.get('/lobby', procesarUsuario);
 //BASE DATOS
 var sqlite3 = require('sqlite3');
@@ -125,6 +127,15 @@ function getSensores(peticion, respuesta) {
     } //else
   }) //base_datos.all
 }//getSensores
+
+function turnUsuarioActivo(peticion, respuesta) {
+  let id = peticion.query.id;
+  base_datos.all('UPDATE Usuarios SET activo=1 WHERE id=?',[peticion.query.id], function(err){
+    if(err!=null) {
+      console.log('Vaya: '+ err);
+    }
+  });
+}
 
 servidor.listen(50971, function() {
   console.log('En marcha');
