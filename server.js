@@ -2,9 +2,6 @@
 var express = require('express');
 var servidor = express();
 var path = require('path');
-var bodyParser = require('body-parser');
-var jwt = require('jsonwebtoken');
-var session = require('express-session');
 
 //--------------------------------------------------------------
 //  CONFIGURACION DEL SERVIDOR
@@ -13,10 +10,6 @@ var session = require('express-session');
 servidor.use(express.static(__dirname));
 
 //codigo servidor
-servidor.use(bodyParser.json());
-servidor.use(bodyParser.urlencoded({
-  extended: true
-}));
 //---------------------------------------------------------------
 servidor.use('/pagina_en_proceso/paginas', express.static(path.join(__dirname, 'public')))
 
@@ -34,6 +27,8 @@ servidor.get("/", function(peticion, respuesta) {
 servidor.post('/cambioContrasenya', cambiarContrasenya);
 
 servidor.get('/zona', getZona)
+
+servidor.get('/sensores', getSensores)
 
 //servidor.get('/lobby', procesarUsuario);
 //BASE DATOS
@@ -56,6 +51,7 @@ function procesar_login(peticion, respuesta) {
         objUsuario = {
           status: 404
         }; //No encontrado el usuario
+        console.log('No existe')
         respuesta.send(objUsuario);
 
       } else {
@@ -72,12 +68,13 @@ function procesar_login(peticion, respuesta) {
           objUsuario = {
             status: 401
           }; //Inautorizado
+          console.log('Mal')
           respuesta.send(objUsuario);
         } //else
       } //else
     } //else
   } //procesar_login2
-  base_datos.get('SELECT * FROM usuarios WHERE nombre=?', [peticion.query.user], procesar_login2);
+  base_datos.get('SELECT * FROM usuarios WHERE email=?', [peticion.query.email], procesar_login2);
 
 } //procesarLogin
 
@@ -85,7 +82,7 @@ function procesar_login(peticion, respuesta) {
 // FUNCIÓN QUE SE EJECUTA AL "SUBMIT" LA NUEVA CONTRASEÑA
 function cambiarContrasenya(peticion, respuesta) {
 
-  base_datos.all('UPDATE usuarios SET contrasenya=? WHERE nombre="Carlos"', [peticion.query.contrasenya], function(err, row) {
+  base_datos.all('UPDATE usuarios SET contrasenya=? WHERE id=' + peticion.query.id, [peticion.query.contrasenya], function(err, row) {
     if (err != null) {
       respuesta.sendStatus(503);
     } else {
@@ -93,7 +90,7 @@ function cambiarContrasenya(peticion, respuesta) {
     }
   });
 
-}
+}//cambiarContrasenya
 //--------------------------------------------------------------------------------
 //FUNCIÓN QUE DEVUELVE LAS ZONAS SEGÚN LA ID DE ZONA
 function getZona(peticion, respuesta) {
@@ -102,22 +99,32 @@ function getZona(peticion, respuesta) {
   var vertices;
   base_datos.get('SELECT * from Zona WHERE id=' + peticion.query.id, function(err, res) {
     if (err != null) {
-      console.log('Error de zona')
+      respuesta.sendStatus(500);
     } else {
       base_datos.all('SELECT * from Vertice WHERE zonaId=' + peticion.query.id, function(error, array) {
         if (error != null) {
-          console.log('Error de vertice: ' + error);
+          respuesta.sendStatus(500);
         } else {
          respuesta.send({
            zona: res,
            vertices: array
-         })
+         })//send
         }//else
-      })
-    }
-  })
-}
-
+      }) //base_datos.all
+    } //else
+  })//base_datos.get
+}//getZona
+//----------------------------------------------------------------------------------
+//FUNCIÓN QUE DEVUELVE LOS SENSORES DE LA BASE DE datos
+function getSensores(peticion, respuesta) {
+  base_datos.all('SELECT * FROM sensores', function(err,res){
+    if(err != null) {
+      respuesta.sendStatus(500);
+    } else {
+      respuesta.send(res);
+    } //else
+  }) //base_datos.all
+}//getSensores
 
 servidor.listen(50971, function() {
   console.log('En marcha');
