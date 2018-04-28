@@ -2,6 +2,8 @@
 var express = require('express');
 var servidor = express();
 var path = require('path');
+var nodemailer = require('nodemailer');
+var generadorContrasenya = require('./generadorContrasenya.js');
 
 //--------------------------------------------------------------
 //  CONFIGURACION DEL SERVIDOR
@@ -32,6 +34,8 @@ servidor.get('/sensores', getSensores)
 
 servidor.post('/volverUsuarioActivo', turnUsuarioActivo);
 
+servidor.get('/recuperarContrasenya', enviarContrasenyaDeRecuperacion);
+
 //servidor.get('/lobby', procesarUsuario);
 //BASE DATOS
 var sqlite3 = require('sqlite3');
@@ -53,7 +57,6 @@ function procesar_login(peticion, respuesta) {
         objUsuario = {
           status: 404
         }; //No encontrado el usuario
-        console.log('No existe')
         respuesta.send(objUsuario);
 
       } else {
@@ -70,7 +73,6 @@ function procesar_login(peticion, respuesta) {
           objUsuario = {
             status: 401
           }; //Inautorizado
-          console.log('Mal')
           respuesta.send(objUsuario);
         } //else
       } //else
@@ -92,7 +94,8 @@ function cambiarContrasenya(peticion, respuesta) {
     }
   });
 
-}//cambiarContrasenya
+} //cambiarContrasenya
+
 //--------------------------------------------------------------------------------
 //FUNCIÓN QUE DEVUELVE LAS ZONAS SEGÚN LA ID DE ZONA
 function getZona(peticion, respuesta) {
@@ -107,35 +110,96 @@ function getZona(peticion, respuesta) {
         if (error != null) {
           respuesta.sendStatus(500);
         } else {
-         respuesta.send({
-           zona: res,
-           vertices: array
-         })//send
-        }//else
+          respuesta.send({
+            zona: res,
+            vertices: array
+          }) //send
+        } //else
       }) //base_datos.all
     } //else
-  })//base_datos.get
-}//getZona
+  }) //base_datos.get
+} //getZona
+
 //----------------------------------------------------------------------------------
 //FUNCIÓN QUE DEVUELVE LOS SENSORES DE LA BASE DE datos
 function getSensores(peticion, respuesta) {
-  base_datos.all('SELECT * FROM sensores', function(err,res){
-    if(err != null) {
+  base_datos.all('SELECT * FROM sensores', function(err, res) {
+    if (err != null) {
       respuesta.sendStatus(500);
     } else {
       respuesta.send(res);
     } //else
   }) //base_datos.all
-}//getSensores
+} //getSensores
 
+//------------------------------------------------------------------------------------
+//FUNCIÓN PARA VOLVER UN USUARIO ACTIVO AL HABERSE LOGUEADO
 function turnUsuarioActivo(peticion, respuesta) {
-  let id = peticion.query.id;
-  base_datos.all('UPDATE Usuarios SET activo=1 WHERE id=?',[peticion.query.id], function(err){
-    if(err!=null) {
-      console.log('Vaya: '+ err);
+  base_datos.all('UPDATE Usuarios SET activo=1 WHERE id=?', [peticion.query.id], function(err) {
+    if (err != null) {
+      console.log('Vaya: ' + err);
     }
   });
 }
+//------------------------------------------------------------------------------------
+// FUNCIÓN PARA ENVIAR UNA CONTRASENYA DE RECUPERACION SI EL USUARIO LA HA PERDIDO
+function enviarContrasenyaDeRecuperacion(peticion, respuesta) {
+  var emailDestino = [peticion.query.email];
+  let contrasenyaNueva = generadorContrasenya.generarCodigo(6);
+
+  base_datos
+
+  var transportista = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'softfields@gmail.com', // Your email id
+      pass: 'dameLasPatatas' // Your password})
+
+    }
+  });
+  let texto = "Tu nueva contraseña es: " + contrasenyaNueva;
+
+  var mailOptions = {
+    from: 'softfields@gmail.com', // sender address
+    to: emailDestino, // list of receivers
+    subject: 'Un mensajito', // Subject line
+    text: texto //, // plaintext body
+    // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+  }
+
+  base_datos.all('SELECT * from Usuarios WHERE email=?', peticion.query.email, function(err, row) {
+    if (err) {
+      console.log('Error de base de datos: ' + err);
+    } else {
+      if (row === null || row === undefined || row.length == 0) {
+        console.log('No existe nadie con el correo: ' + peticion.query.email)
+      } else {
+        base_datos.all("UPDATE Usuarios SET contrasenya='" + contrasenyaNueva + "' WHERE email='" + peticion.query.email + "';", function(err) {
+          if (err) {
+            console.log(err)
+          } else {
+            transportista.sendMail(mailOptions, function(error, info) {
+              if (error) {
+                console.log(error);
+                respuesta.json({
+                  yo: 'error'
+                });
+              } else {
+                console.log('Message sent: ' + info.response);
+                respuesta.json({
+                  yo: info.response
+                });
+              };
+            });
+          }
+        }); //transportista
+      } //if
+    } //if
+  }) //comprobar que el usuario está en la base de datos
+
+} //enviarContrasenyaDeRecuperacion
+//-------------------------------------------------------------------------
+
 
 servidor.listen(50971, function() {
   console.log('En marcha');
