@@ -49,8 +49,52 @@
 
 
 </head>
+<style>
+    
+    @media (max-width:1000px) {
+        #panelZonas {
+            display: none;
+        }
+    }
+    @media (min-width:1000px) {
+    
+   
+    
+    .menu-toggle {
+        display: none;
+    }
+
+    .site-nav {
+        height: auto;
+        position: relative;
+        background: transparent;
+        float: right;
+    }
+
+    .site-nav li {
+        display: inline-block;
+        border: none;
+    }
+
+    .site-nav a {
+        padding: 0;
+        margin-left: 3em;
+    }
+
+    .site-nav a:hover,
+    .site-nav a:focus {
+        background: rgba(255, 255, 255, 0.59);
+    }
+
+    .site-nav--icon {
+        display: none;
+    }
+}
+
+    </style>
 
 <body>
+    
 
     <header>
         <div class="container">
@@ -687,7 +731,7 @@
 
 
     <script>
-        
+        /*
                 var usuario = sessionStorage.getItem('Usuario');
                 if (usuario === null) {
                     window.location.href = '/paginas/InicioSesion.html';
@@ -711,7 +755,7 @@
                     });
                 });
 
-                
+                */
         
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

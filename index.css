@@ -351,7 +351,13 @@ footer {
 
 /* -- Cabecera modo Desktop -- */
 
-@media(min-width:770px) {
+@media(max-width:1000px) {
+    
+   
+    #panelZonas {
+        display: none;
+    }
+    
     .menu-toggle {
         display: none;
     }
