@@ -49,61 +49,6 @@
 
 
 </head>
-<style>
-    @media (max-width:1000px) {
-        #panelZonas {
-            display: none;
-            width: 0%;
-            margin: 0%;
-        }
-        #panelMapa {
-            width: 100%;
-            top: 7%;
-            left: 0%;
-            right: 0%;
-            bottom: 20%;
-        }
-    }
-
-    @media (min-width:1000px) {
-
-        #listaSensoresResponsive {
-            display: none;
-        }
-
-
-        .menu-toggle {
-            display: none;
-        }
-
-        .site-nav {
-            height: auto;
-            position: relative;
-            background: transparent;
-            float: right;
-        }
-
-        .site-nav li {
-            display: inline-block;
-            border: none;
-        }
-
-        .site-nav a {
-            padding: 0;
-            margin-left: 3em;
-        }
-
-        .site-nav a:hover,
-        .site-nav a:focus {
-            background: rgba(255, 255, 255, 0.59);
-        }
-
-        .site-nav--icon {
-            display: none;
-        }
-    }
-
-</style>
 
 <body>
 
@@ -141,10 +86,10 @@
 
             <!-- Contenedor para el listado de zonas -->
             <div id="listaZonas">
-                <div class="btn-group btn-group-sm" role="group" style="margin-bottom: 5px;">
-                    <button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 25px; margin-left: 25px;" onclick="Todos()">Todos los campos</button>
+               <div class="btn-group btn-group-sm" role="group" style="margin-bottom: 5px;">
+               <button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 25px; margin-left: 25px;" onclick="Todos()">Todos los campos</button>
                 </div>
-
+               
                 <div class="btn-group btn-group-sm" role="group" style="margin-bottom: 5px;">
                     <button class="btn btn-light" style="background-color: rgba(76, 171, 206, 0.81)" onclick="initMap()">Campo 1</button>
                     <button class="btn btn-secondary" style="width:40px" onclick="initMap()">
@@ -654,94 +599,22 @@
                 });
 
 
-
+                
             }
-
         </script>
     </div>
 
+        
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2Ad9zKEzUzDpIn9OM8rCW_wXzjlwD_Hc&callback=initMap">
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2Ad9zKEzUzDpIn9OM8rCW_wXzjlwD_Hc&callback=initMap">
 
-
-    </script>
+        </script>
 
 
     <div id="panelGraficas" class="panel">
         <div id="chart_div"></div>
     </div>
 
-    <div id="listaSensoresResponsive">
-        <div class="dropdown open btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Campo1
-  </button>
-            <div class="dropdown-menu">
-
-                <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> Sonda1</h6>
-                <a class="dropdown-item" href="#!"></a>
-                <a class="dropdown-item" href="#!"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" data-toggle="modal" data-target="#exampleModal"
-                 
-                 >Sensor 1</button></a>
-                <a class="dropdown-item" href="#!"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px"  data-toggle="modal" data-target="#exampleModal">Sensor 2</button></a>
-                <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> Sonda 2</h6><a class="dropdown-item" href="#!"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px" data-toggle="modal" data-target="#exampleModal" >Sensor 4</button></a><a class="dropdown-item" href="#!"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px"  data-toggle="modal" data-target="#exampleModal">Sensor 5</button></a>
-            </div>
-        </div>
-
-
-        <div class="dropdown open btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Campo2
-  </button>
-            <div class="dropdown-menu" style="margin-bottom: 5px; margin-right: 5px">
-
-                <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> Sonda 3</h6>
-                <a class="dropdown-item" href="#!"></a>
-                <a class="dropdown-item" href="#!"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px"  data-toggle="modal" data-target="#exampleModal">Sensor 5</button></a>
-                <a class="dropdown-item" href="#!"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px"  data-toggle="modal" data-target="#exampleModal">Sensor 6</button></a>
-                <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> Sonda 4</h6><a class="dropdown-item" href="#!"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px"  data-toggle="modal" data-target="#exampleModal">Sensor 7</button></a><a class="dropdown-item" href="#!"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px"  data-toggle="modal" data-target="#exampleModal">Sensor 8</button></a>
-            </div>
-        </div>
-
-
-        <div class="dropdown open btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Campo3
-  </button>
-            <div class="dropdown-menu" style="margin-bottom: 5px; margin-right: 5px">
-
-                <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> Sonda 5</h6>
-                <a class="dropdown-item" href="#!"></a>
-                <a class="dropdown-item" href="#!"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px"  data-toggle="modal" data-target="#exampleModal">Sensor 9 </button></a>
-                <a class="dropdown-item" href="#!"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px"  data-toggle="modal" data-target="#exampleModal">Sensor 10</button></a>
-                <h6 class="dropdown-header"><i class="fa fa-map-pin"></i> Sonda 6</h6><a class="dropdown-item" href="#!"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px"  data-toggle="modal" data-target="#exampleModal">Sensor 11</button></a><a class="dropdown-item" href="#!"><button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 5px"  data-toggle="modal" data-target="#exampleModal">Sensor 12</button></a>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ejemplo de Sensor</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-                </div>
-                <div class="modal-body">
-
-                    <div id="panelGraficas" class="panel">
-                        <div id="chart_div"></div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 
@@ -800,50 +673,49 @@
             var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
             chart.draw(data, options);
         }
-
     </script>
 
-    <script>
-        function myFunction() {
+<script>
+	function myFunction() {
             var x = document.getElementById("panelGraficas");
 
             x.style.visibility = "visible";
 
         }
-
     </script>
 
 
 
     <script>
-        var usuario = sessionStorage.getItem('Usuario');
-        if (usuario === null) {
-            window.location.href = '/paginas/InicioSesion.html';
-        }
-
-        function cerrarSesion() {
-            sessionStorage.removeItem('Usuario');
-            window.location.href = '/paginas/InicioSesion.html';
-        }
-
-        $(document).ready(function() {
-            $('a[href="#navbar-more-show"], .navbar-more-overlay').on('click', function(event) {
-                event.preventDefault();
-                $('body').toggleClass('navbar-more-show');
-                if ($('body').hasClass('navbar-more-show')) {
-                    $('a[href="#navbar-more-show"]').closest('li').addClass('active');
-                } else {
-                    $('a[href="#navbar-more-show"]').closest('li').removeClass('active');
+        
+                var usuario = sessionStorage.getItem('Usuario');
+                if (usuario === null) {
+                    window.location.href = '/paginas/InicioSesion.html';
                 }
-                return false;
-            });
-        });
 
+                function cerrarSesion() {
+                    sessionStorage.removeItem('Usuario');
+                    window.location.href = '/paginas/InicioSesion.html';
+                }
+
+                $(document).ready(function() {
+                    $('a[href="#navbar-more-show"], .navbar-more-overlay').on('click', function(event) {
+                        event.preventDefault();
+                        $('body').toggleClass('navbar-more-show');
+                        if ($('body').hasClass('navbar-more-show')) {
+                            $('a[href="#navbar-more-show"]').closest('li').addClass('active');
+                        } else {
+                            $('a[href="#navbar-more-show"]').closest('li').removeClass('active');
+                        }
+                        return false;
+                    });
+                });
+
+                
+        
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js">
-
-
     </script>
     <script>
         $('.menu-toggle').click(function() {
@@ -852,7 +724,6 @@
             $(this).toggleClass('open');
 
         })
-
     </script>
 </body>
 
