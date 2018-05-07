@@ -2,14 +2,7 @@
   "name": "archivos_g2",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
-  "dependencies": {
-    "express": "^4.16.3",
-    "nodemailer": "^4.6.4",
-    "npm": "^6.0.0",
-    "sqlite3": "^4.0.0"
-  },
-  "devDependencies": {},
+  "main": "generadorContrasenya.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -23,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/ItsCanut/Archivos_G2/issues"
   },
-  "homepage": "https://github.com/ItsCanut/Archivos_G2#readme"
+  "homepage": "https://github.com/ItsCanut/Archivos_G2#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "nodemailer": "^4.6.4",
+    "sqlite3": "^4.0.0"
+  },
+  "devDependencies": {}
 }
