@@ -49,6 +49,7 @@ header::after {
     right: 0%;
     height: 0px;
     overflow: hidden;
+    z-index: 100;
 }
 
 .site-nav--open {
@@ -401,17 +402,17 @@ footer {
 #panelZonas {
 
     position: absolute;
-    top: 80px;
-    left: 10px;
+    margin-top: 30px;
+    margin-left: 20px;
     width: 300px;
 }
 
 
 #panelMapa {
     position: absolute;
-    top: 70px;
-    bottom: 470px;
-    left: 330px;
+    margin-top: 6px;
+    margin-bottom: 5px;
+    margin-left: 2px;
 
 }
 
@@ -449,4 +450,17 @@ footer {
     left: 320px;
     bottom: 10px;
     height: 300px;
+}
+
+
+#panelGraficasResponsive {
+    
+}
+
+
+#listaSensoresResponsive {
+    position: absolute;
+    width: 100%;
+    bottom: 12%;
+    text-align: center;
 }
