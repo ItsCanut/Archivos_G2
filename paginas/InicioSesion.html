@@ -39,7 +39,7 @@
       var email = document.getElementById("email").value;
       var contrasenya = document.getElementById("password").value;
       if (email == "" || contrasenya == "") {
-        camposVacios();
+        errorForm('Es obligatorio rellenar todos los campos');
       } else {
         fetch('/login?email=' + email + '&password=' + contrasenya, {
           method: 'post'
@@ -47,13 +47,13 @@
           return respuesta.json();
         }).then(function(son) {
           if (son.status == 404 || son.status == 401) {
-            contrasenyaErronea();
+            errorForm('Usuario o contraseña incorrecta');
           } else {
             sessionStorage.setItem('Usuario', JSON.stringify(son));
             console.log(son.usuario.activo);
             if (son.usuario.activo == 0) {
-              fetch('/volverUsuarioActivo?id=' + son.usuario.id,{
-                method:'post'
+              fetch('/volverUsuarioActivo?id=' + son.usuario.id, {
+                method: 'post'
               });
               window.location.href = 'RestablecerContraseña.html';
 
@@ -65,18 +65,9 @@
       } //else
     } //procesarLogin
 
-    function aparecerMensajeError() {
+    function errorForm(index) {
+      document.getElementById('mensajeError').innerHTML = index;
       document.getElementById('mensajeError').style.visibility = 'visible';
-    }
-
-    function camposVacios(){
-      document.getElementById('mensajeError').innerHTML = 'Es obligatorio rellenar todos los campos';
-      aparecerMensajeError();
-    }
-
-    function contrasenyaErronea() {
-      document.getElementById('mensajeError').innerHTML = 'Email o contraseña incorrecta';
-      aparecerMensajeError();
     }
   </script>
 

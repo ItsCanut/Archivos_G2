@@ -62,7 +62,11 @@
                     <li><a href="lobby.html"><i class="fa fa-home site-nav--icon"></i>Menu</a></li>
                     <li><a href="datosUsuario.html"><i class="fa fa-info site-nav--icon"></i>Datos</a></li>
                     <li><a href="RestablecerContrase%C3%B1a.html"><i class="fa fa-cog site-nav--icon"></i>Opciones</a></li>
+<<<<<<< HEAD
+                    <li><a onclick="cerrarSesion()" href="#"><i class="fa fa-cog site-nav--icon"></i>Cerrar Sesión</a></li>
+=======
                     <li><a href="InicioSesion.html" onclick="cerrarSesion()"><i class="fa fa-cog site-nav--icon"></i>Cerrar Sesión</a></li>
+>>>>>>> d22e31fb1554996820a4da2b381b60d2fde4d6c2
 
 
                 </ul>
@@ -89,7 +93,7 @@
                <div class="btn-group btn-group-sm" role="group" style="margin-bottom: 5px;">
                <button class="btn btn-secondary" style="margin-bottom: 5px; margin-right: 25px; margin-left: 25px;" onclick="Todos()">Todos los campos</button>
                 </div>
-               
+
                 <div class="btn-group btn-group-sm" role="group" style="margin-bottom: 5px;">
                     <button class="btn btn-light" style="background-color: rgba(76, 171, 206, 0.81)" onclick="initMap()">Campo 1</button>
                     <button class="btn btn-secondary" style="width:40px" onclick="initMap()">
@@ -625,6 +629,29 @@
 
 
     <script>
+    var usuario = sessionStorage.getItem('Usuario');
+    if (usuario === null) {
+        window.location.href = '/paginas/InicioSesion.html';
+    }
+
+    function cerrarSesion() {
+        sessionStorage.removeItem('Usuario');
+        window.location.href = '/paginas/InicioSesion.html';
+    }
+
+    $(document).ready(function() {
+        $('a[href="#navbar-more-show"], .navbar-more-overlay').on('click', function(event) {
+            event.preventDefault();
+            $('body').toggleClass('navbar-more-show');
+            if ($('body').hasClass('navbar-more-show')) {
+                $('a[href="#navbar-more-show"]').closest('li').addClass('active');
+            } else {
+                $('a[href="#navbar-more-show"]').closest('li').removeClass('active');
+            }
+            return false;
+        });
+    });
+
         google.charts.load('current', {
             packages: ['corechart', 'line']
         });
@@ -666,7 +693,7 @@
                     title: 'Hora'
                 },
                 vAxis: {
-                    title: 'Tempertaura Cº '
+                    title: 'Tempertaura ºC '
                 },
                 backgroundColor: '#f1f8e9'
             };
@@ -685,6 +712,8 @@
     </script>
 
 
+<<<<<<< HEAD
+=======
 
     <script>
         
@@ -714,6 +743,7 @@
                 
         
     </script>
+>>>>>>> d22e31fb1554996820a4da2b381b60d2fde4d6c2
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js">
     </script>
