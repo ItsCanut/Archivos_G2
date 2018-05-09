@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Gráfica</title>
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js></script>
+
+</head>
+
+<body>
+  <canvas id="gráfica" style="max-height: 400px; max-width: 500px"></canvas>
+  <button type="button" onclick="dameSensores()">Dame medidas</button>
+  <script>
+    var ordenada = [];
+    for (let i = 0; i < 11; i++) {
+      ordenada[i] = enteroRandom();
+    }
+
+    var ctx = document.getElementById("gráfica").getContext("2d");
+
+    var barChart = new Chart(ctx, {
+      options:{
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              min: 0,
+              max: 60
+            }
+          }]
+        }
+      },
+      type: 'line',
+      data: {
+        labels: ["China", "India", "United States", "Indonesia", "Brazil", "Pakistan", "Nigeria", "Bangladesh", "Russia", "Japan"],
+        datasets: [{
+          label: 'Temperatura',
+          fill: false,
+          data: ordenada,
+          backgroundColor: 'red',
+          borderColor: 'red'
+        }]
+      }
+    });
+
+    function enteroRandom() {
+      return Math.floor(Math.random() * 51);
+    }
+
+    function dameSensores() {
+      fetch('/getSensores').then(function(res) {
+        return res.json();
+      }).then(function(med) {
+        console.log(med);
+      })
+    }
+  </script>
+</body>
+
+</html>

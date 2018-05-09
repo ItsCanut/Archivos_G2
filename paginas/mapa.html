@@ -71,7 +71,10 @@
             map: mapa,
             title: 'Sensor ' + JSON.stringify(i + 1)
           })
-        }
+          marcadores[i].addListener('click',function(){
+            console.log('Soy el sensor ' + marcadores[i].title);
+          })
+        }//for
       } //else
     }) //then
   } //getSensores
