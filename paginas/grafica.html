@@ -10,51 +10,64 @@
 
 <body>
   <canvas id="gráfica" style="max-height: 400px; max-width: 500px"></canvas>
-  <button type="button" onclick="dameSensores()">Dame medidas</button>
+  <button type="button" onclick="dameMedidas('temperatura')">Dame medidas</button>
   <script>
+    Chart.defaults.global.animationEasing = "easeOutBounce";
+    var colorLineaGrafica = 'red';
     var ordenada = [];
-    for (let i = 0; i < 11; i++) {
-      ordenada[i] = enteroRandom();
-    }
+    var magnitud = 'Temperatura';
+    var minOrdenada = 0;
+    var maxOrdenada = 60;
+    /*  for (let i = 0; i < 11; i++) {
+        ordenada[i] = enteroRandom();
+      }*/
 
     var ctx = document.getElementById("gráfica").getContext("2d");
 
     var barChart = new Chart(ctx, {
-      options:{
+      options: {
         scales: {
           yAxes: [{
             ticks: {
               beginAtZero: true,
-              min: 0,
-              max: 60
-            }
-          }]
-        }
-      },
+              min: minOrdenada,
+              max: maxOrdenada
+            }//ticks
+          }] //yAxes
+        } //scales
+      }, //options
       type: 'line',
       data: {
-        labels: ["China", "India", "United States", "Indonesia", "Brazil", "Pakistan", "Nigeria", "Bangladesh", "Russia", "Japan"],
+        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre'],
         datasets: [{
-          label: 'Temperatura',
+          label: magnitud,
           fill: false,
           data: ordenada,
-          backgroundColor: 'red',
-          borderColor: 'red'
-        }]
-      }
+          backgroundColor: colorLineaGrafica,
+          borderColor: colorLineaGrafica
+        }]//datasets
+      }//data
     });
 
     function enteroRandom() {
       return Math.floor(Math.random() * 51);
     }
 
-    function dameSensores() {
-      fetch('/getSensores').then(function(res) {
+    function dameMedidas(medicion) {
+      fetch('/getSensores?magnitud=' + medicion).then(function(res) {
         return res.json();
       }).then(function(med) {
-        console.log(med);
-      })
-    }
+        if (med.status == 404) {
+          console.log('Error del servidor')
+        } else {
+          console.log(med);
+          for (let i = 0; i < 10; i++) {
+            ordenada[i] = med[i][Object.keys(med[i])[0]];
+          }; //for
+          barChart.update();
+        }//else
+      })//then
+    }//dameMedidas
   </script>
 </body>
 

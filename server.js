@@ -4,6 +4,7 @@ var servidor = express();
 var path = require('path');
 var nodemailer = require('nodemailer');
 var generadorContrasenya = require('./generadorContrasenya.js');
+var puertoDefecto = 50971;
 
 //--------------------------------------------------------------
 //  CONFIGURACION DEL SERVIDOR
@@ -162,7 +163,7 @@ function enviarContrasenyaDeRecuperacion(peticion, respuesta) {
   var mailOptions = {
     from: 'softfields@gmail.com', // sender address
     to: emailDestino, // list of receivers
-    subject: 'Un mensajito', // Subject line
+    subject: 'Solicitud de nueva contraseña', // Subject line
     text: texto //, // plaintext body
     // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
   }
@@ -199,8 +200,12 @@ function enviarContrasenyaDeRecuperacion(peticion, respuesta) {
 
 } //enviarContrasenyaDeRecuperacion
 //-------------------------------------------------------------------------
-
-
-servidor.listen(50971, function() {
-  console.log('En marcha');
-})
+if (process.env.PORT !== undefined) {
+  servidor.listen(process.env.PORT, function() {
+    console.log('Escuchando en el puerto: ' + process.env.PORT)
+  })
+} else {
+  servidor.listen(puertoDefecto, function() {
+    console.log('En marcha en el puerto: ' + puertoDefecto);
+  });
+}
