@@ -1,0 +1,34 @@
+@media(max-width:425px) {
+    .cajaInicioSesion {
+        width: 90%;
+    }
+    
+    img {
+        width: 75%;
+    }
+    
+    
+    
+}
+
+@media(min-width:426px){
+    .cajaInicioSesion {
+        height: 75%;
+    }
+}
+
+.cajaInicioSesion {
+    display: block;
+    width: 90%;
+    border-radius: 43px 43px 43px 43px;
+    -moz-border-radius: 43px 43px 43px 43px;
+    -webkit-border-radius: 43px 43px 43px 43px;
+    background-color: rgba(3, 36, 54, 0.5);
+    padding: 2rem;
+}
+
+
+
+.banner > img {
+     width: 80%;
+}
