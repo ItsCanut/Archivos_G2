@@ -102,27 +102,45 @@ function cambiarContrasenya(peticion, respuesta) {
 //--------------------------------------------------------------------------------
 //FUNCIÓN QUE DEVUELVE LAS ZONAS SEGÚN LA ID DE ZONA
 function getZonas(peticion, respuesta) {
-  var errores = 0;
-  var objZonas = {};
-  var zonas = [];
-  base_datos.all('SELECT nombre, color, id from Zona WHERE userID=' + peticion.query.id,
-    function(err, zones) {
-      if (err) {
-        respuesta.sendStatus(500);
-      } else {
-        zonas = zones;
-        for (let zone of zonas) {
-          base_datos.all('SELECT lat, lng from Vertice WHERE zonaId=' + zone.id,
-            function(err2, vertex) {
-              if (err2) {
-                return;
-              } else {
-                zone.vertices = vertex;
-              } //else
-            }) //base_datos.all
-        } //for
-      } //else
-    }) //base_datos.all
+  var objZonas = [{}];
+  var ides = [];
+  base_datos.all('SELECT nombre, color ,id FROM Zona where userID=' + peticion.query.id, function(err, traits) {
+    if (err) {
+      respuesta.sendStatus(500);
+      console.log(err);
+    } else {
+      objZonas = traits
+
+      for (let i = 0; i < traits.length; i++) {
+        ides.push(traits[i].id); //Guardar las id's obtenidas de las zonas para buscar vertices
+      } //for
+      for (let i of objZonas) {
+        i.vertices = [];
+      } //for
+
+      base_datos.all('SELECT lat,lng, zonaId FROM Vertice WHERE zonaId IN(' + ides + ')',
+        function(err2, vertex) {
+          if (err2) {
+            respuesta.sendStatus(404);
+            console.log(err2);
+          } else {
+
+            for (let i = 0; i < objZonas.length; i++) {
+              for (let k = 0; k < vertex.length; k++) {
+                if (vertex[k].zonaId == objZonas[i].id) {
+                  objZonas[i].vertices.push(vertex[k]);
+                } //if
+              } //for
+            } //for
+
+            console.log(objZonas[0].vertices)
+            respuesta.send(objZonas);
+
+          } //else
+        }); //base_datos.all
+
+    } //else
+  }) //base_datos.all
 } //getZona
 
 /* PENDIENTE DE REVISIÓN*/
