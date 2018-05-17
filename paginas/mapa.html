@@ -10,13 +10,15 @@
   <div id="mapa" style="width: 700px; height: 500px; border: solid 1px #ccc">
 
   </div>
-  <button onclick="CargarZonas(1)">Zona 1</button>
-  <button onclick="CargarZonas(2)">Zona 2</button>
+  <button onclick="CargarZonas(0)">Zona 1</button>
+  <button onclick="CargarZonas(3)">Zona 3</button>
 </body>
 <script>
   var mapa;
   var marcadores = [];
   var zona = {};
+
+  var zonas = [];
 
   function iniciarMap() {
     mapa = new google.maps.Map(document.getElementById("mapa"), {
@@ -29,34 +31,25 @@
     });
 
     mapa.setMapTypeId('hybrid');
-    var zonas = [];
     getSensores(mapa);
+    getZonas();
   } //iniciarMap
 
-  function CargarZonas(índice, arrayZonas) {
-    fetch('/zona?id=' + índice).then(function(respuesta) {
-      return respuesta.json();
-    }).then(function(datos) {
-      console.log(datos);
-      var limites = new google.maps.LatLngBounds();
-      datos.vertices.forEach(function(vertice) {
-        vertice.lat = parseFloat(vertice.lat);
-        vertice.lng = parseFloat(vertice.lng);
-        limites.extend(vertice);
-      });
-      zona.poligono = new google.maps.Polygon({
-        paths: datos.vertices,
-        strokeColor: datos.zona.color,
-        fillColor: datos.zona.color,
-        fillOpacity: 0.2
-      });
-      zona.id = datos.zona.id;
-      zona.nombre = datos.zona.nombre;
-      zona.color = datos.zona.color;
-      zona.poligono.setMap(mapa);
-      mapa.fitBounds(limites, 20);
-    });
-  }
+function CargarZonas(índice){
+
+}
+
+ function getZonas() {
+   fetch('/zona?id=1').then(function(respuesta){
+     return respuesta.json()
+   }).then(function(res){
+     if(res.status == 500) {
+       alert('Error servidor');
+     } else {
+       console.log(res);
+     } //else
+   }) //then
+ }//getZonas
 
   function getSensores(mapa) {
     fetch('/sensores').then(function(respuesta) {

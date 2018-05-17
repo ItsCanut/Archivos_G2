@@ -9,65 +9,72 @@
 </head>
 
 <body>
-  <canvas id="gráfica" style="max-height: 400px; max-width: 500px"></canvas>
-  <button type="button" onclick="dameMedidas('temperatura')">Dame medidas</button>
+  <canvas id="gráfica"></canvas>
+  <button type="button" onclick="dameMedidas('temperatura', 'red', -20, 60, '')">Dame temperatura</button>
+  <button type="button" onclick="dameMedidas('humedad', 'blue', 0 , 100, 'Humedad')">Dame humedad</button>
   <script>
     Chart.defaults.global.animationEasing = "easeOutBounce";
-    var colorLineaGrafica = 'red';
+
+    var abcisa = [];
     var ordenada = [];
-    var magnitud = 'Temperatura';
-    var minOrdenada = 0;
-    var maxOrdenada = 60;
-    /*  for (let i = 0; i < 11; i++) {
-        ordenada[i] = enteroRandom();
-      }*/
+    var colorLineaGrafica = 'red';
+
 
     var ctx = document.getElementById("gráfica").getContext("2d");
 
     var barChart = new Chart(ctx, {
       options: {
+        responsive: true,
         scales: {
           yAxes: [{
             ticks: {
               beginAtZero: true,
-              min: minOrdenada,
-              max: maxOrdenada
-            }//ticks
+              min: 0,
+              max: 100
+            } //ticks
           }] //yAxes
         } //scales
       }, //options
       type: 'line',
       data: {
-        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre'],
+        labels: abcisa,
         datasets: [{
-          label: magnitud,
+          label: 'default',
           fill: false,
           data: ordenada,
-          backgroundColor: colorLineaGrafica,
-          borderColor: colorLineaGrafica
-        }]//datasets
-      }//data
-    });
+          backgroundColor: null,
+          borderColor: null
+        }] //datasets
+      } //data
+    }); //newChart
 
     function enteroRandom() {
       return Math.floor(Math.random() * 51);
     }
 
-    function dameMedidas(medicion) {
-      fetch('/getSensores?magnitud=' + medicion).then(function(res) {
-        return res.json();
-      }).then(function(med) {
-        if (med.status == 404) {
-          console.log('Error del servidor')
+
+    function dameMedidas(medicion, color, minOr, maxOr, magn) {
+      fetch('/getMedidas?magnitud=' + medicion).then(function(res) {
+        if (res.status == 404) {
+          alert('Error del servidor')
         } else {
-          console.log(med);
-          for (let i = 0; i < 10; i++) {
-            ordenada[i] = med[i][Object.keys(med[i])[0]];
-          }; //for
-          barChart.update();
-        }//else
-      })//then
-    }//dameMedidas
+          return res.json();
+        } //else
+      }).then(function(med) {
+        barChart.data.datasets[0].backgroundColor = color;
+        barChart.data.datasets[0].borderColor = color;
+        barChart.options.scales.yAxes[0].ticks.min = minOr;
+        barChart.options.scales.yAxes[0].ticks.max = maxOr;
+        barChart.data.datasets[0].label = magn;
+
+        for (let i = 0; i < 11; i++) {
+          ordenada[i] = Object.values(med.ordenada[i])[0];
+          abcisa[i] = med.abcisa[i].tiempo.split(' ')[1];
+        } //for
+
+        barChart.update();
+      }) //then
+    } //dameMedidas
   </script>
 </body>
 
