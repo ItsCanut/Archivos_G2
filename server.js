@@ -81,7 +81,7 @@ function procesar_login(peticion, respuesta) {
       } //else
     } //else
   } //procesar_login2
-  base_datos.get('SELECT nombre, apellidos, email, sexo, empresa, permisos, activo FROM usuarios WHERE email=?', [peticion.query.email], procesar_login2);
+  base_datos.get('SELECT * FROM usuarios WHERE email=?', [peticion.query.email], procesar_login2);
 
 } //procesarLogin
 
@@ -118,7 +118,7 @@ function getZonas(peticion, respuesta) {
         i.vertices = [];
       } //for
 
-      base_datos.all('SELECT lat,lng, zonaId FROM Vertice WHERE zonaId IN(' + ides + ')',
+      base_datos.all('SELECT lat,lng, orden, zonaId FROM Vertice WHERE zonaId IN(' + ides + ')',
         function(err2, vertex) {
           if (err2) {
             respuesta.sendStatus(404);
@@ -132,8 +132,6 @@ function getZonas(peticion, respuesta) {
                 } //if
               } //for
             } //for
-
-            console.log(objZonas[0].vertices)
             respuesta.send(objZonas);
 
           } //else

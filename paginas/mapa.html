@@ -11,7 +11,7 @@
 
   </div>
   <button onclick="CargarZonas(0)">Zona 1</button>
-  <button onclick="CargarZonas(3)">Zona 3</button>
+  <button onclick="CargarZonas(1)">Zona 3</button>
 </body>
 <script>
   var mapa;
@@ -19,6 +19,10 @@
   var zona = {};
 
   var zonas = [];
+  var poligonos = [];
+  var opacidadMapas = 0.3;
+  var limiteses = [];
+  var coords = [];
 
   function iniciarMap() {
     mapa = new google.maps.Map(document.getElementById("mapa"), {
@@ -32,23 +36,37 @@
 
     mapa.setMapTypeId('hybrid');
     getSensores(mapa);
-    getZonas();
+    getZonas(mapa);
   } //iniciarMap
 
   function CargarZonas(índice) {
-
+    setBounds(mapa, poligonos[índice])
+    console.log(poligonos[índice])
   }
 
-  function getZonas() {
-    fetch('/zona?id=1').then(function(res){
-      if(res.status == 404 || res.status == 500) {
-        console.log('Error de servidor')
+  function getZonas(mapa) {
+    fetch('/zona?id=1').then(function(res) {
+      if (res.status == 404 || res.status == 500) {
+        alert('Error de servidor')
+        window.location.href = 'InicioSesion.html'
       } else {
         return res.json()
-      }
-    }).then(function(respuesta){
-      console.log(respuesta)
-    })
+      } //else
+    }).then(function(zones) {
+      for (let i of zones) {
+        zonas.push(i);
+      }; //for
+      for (let i = 0; i < zonas.length; i++) {
+        poligonos[i] = new google.maps.Polygon({
+          paths: zonas[i].vertices,
+          fillColor: zonas[i].color,
+          fillOpacity: opacidadMapas,
+          strokeColor: zonas[i].color,
+          strokeOpacity: opacidadMapas
+        }) //constructor
+      } //for
+
+    }) //then
   } //getZonas
 
   function getSensores(mapa) {
@@ -71,6 +89,19 @@
       } //else
     }) //then
   } //getSensores
+
+  function setBounds(mapa, poligono) {
+    poligono.setMap(mapa);
+    let limites = new google.maps.LatLngBounds();
+    let vertices = poligono.getPath()
+    console.log(vertices)
+    for (let i = 0; i < vertices.length; i++) {
+      vertices[i].lat = parseFloat(vertices[i].lat)
+      vertices[i].lng = parseFloat(vertices[i].lng)
+      limites.extend(vertices[i]);
+    }
+    mapa.fitBounds(limites);
+  }
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4CfoqowZGnOpAw3wDFvjc2im84GK_EHk&callback=iniciarMap">
 </script>
