@@ -50,6 +50,7 @@
             errorForm('Usuario o contraseña incorrecta');
             console.log(contrasenya)
           } else {
+            console.log('bien')
             sessionStorage.setItem('Usuario', JSON.stringify(son));
             console.log(son.usuario.activo);
             if (son.usuario.activo == 0) {
