@@ -48,9 +48,7 @@
         }).then(function(son) {
           if (son.status == 404 || son.status == 401) {
             errorForm('Usuario o contraseña incorrecta');
-            console.log(contrasenya)
           } else {
-            console.log('bien')
             sessionStorage.setItem('Usuario', JSON.stringify(son));
             console.log(son.usuario.activo);
             if (son.usuario.activo == 0) {
@@ -58,6 +56,7 @@
                 method: 'post'
               });
               window.location.href = 'RestablecerContraseña.html';
+
             } else {
               window.location.href = "lobby.html";
             } //else
@@ -70,6 +69,7 @@
       document.getElementById('mensajeError').innerHTML = error;
       document.getElementById('mensajeError').style.visibility = 'visible';
     }
+    
   </script>
 
   <footer>Copyright © Grupo 2 grado GTI</footer>

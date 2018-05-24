@@ -3,8 +3,10 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
 
 
+
 body {
     background: #F0F8EA;
+    background-size: cover;
     font-family: 'Quicksand', sans-serif;
 }
 
@@ -13,6 +15,7 @@ header {
     color: #EBEBD3;
     padding: 1em 0;
     position: relative;
+    z-index: 500;
 }
 
 header::after {
@@ -334,15 +337,14 @@ div.banner {
 
 
 footer {
+    position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
     padding: 2rem;
-    clear: left;
     text-align: center;
     color: aliceblue;
     background-color: #464655;
-    width: 99%;
-    margin-top: 40px;
-    position: absolute;
-    bottom: 0;
 }
 
 
@@ -351,7 +353,13 @@ footer {
 
 /* -- Cabecera modo Desktop -- */
 
-@media(min-width:770px) {
+@media(min-width:1008px) {
+    
+    
+   
+    
+    
+    
     .menu-toggle {
         display: none;
     }
@@ -452,9 +460,20 @@ footer {
 }
 
 
-#panelGraficasResponsive {
-    
+/*======= Quitar el footer del mapa de google ============*/
+
+
+.gmnoprint a, .gmnoprint span {
+    display:none;
 }
+.gmnoprint div {
+    background:none !important;
+}
+img[src=http://maps.gstatic.com/mapfiles/api-3/images/google_white2.png]
+{display:none}
+
+
+
 
 
 #listaSensoresResponsive {
