@@ -2,7 +2,13 @@
   "name": "archivos_g2",
   "version": "1.0.0",
   "description": "",
-  "main": "generadorContrasenya.js",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.3",
+    "nodemailer": "^4.6.5",
+    "sqlite3": "^4.0.0"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

@@ -282,11 +282,11 @@
         poligonos[índice].setMap(mapa)
         mapa.fitBounds(limites[índice])
       }
-
+//
       function getZonas(mapa) {
         fetch('/zona?id=1').then(function(res) {
           if (res.status == 404 || res.status == 500) {
-            alert('Error de servidor')
+            alert('Error de servidor: No se pudo obtener la lista de Zonas')
             window.location.href = 'InicioSesion.html'
           } else {
             return res.json()
