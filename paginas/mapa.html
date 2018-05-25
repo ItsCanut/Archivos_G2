@@ -11,7 +11,7 @@
 
   </div>
   <button onclick="CargarZonas(0)">Zona 1</button>
-  <button onclick="CargarZonas(1)">Zona 3</button>
+  <button onclick="CargarZonas(3)">Zona 3</button>
 </body>
 <script>
   var mapa;
@@ -19,9 +19,12 @@
   var zona = {};
   var limites = [];
   var zonas = [];
+<<<<<<< HEAD
   var poligonos = [];
   var opacidadMapas = 0.3;
 
+=======
+>>>>>>> 4ee89e3051783018b24cb30351ccfc46aeff75a3
 
   function iniciarMap() {
     mapa = new google.maps.Map(document.getElementById("mapa"), {
@@ -35,9 +38,10 @@
 
     mapa.setMapTypeId('hybrid');
     getSensores(mapa);
-    getZonas(mapa);
+    getZonas();
   } //iniciarMap
 
+<<<<<<< HEAD
   function CargarZonas(índice) {
     poligonos[índice].setMap(mapa)
     mapa.fitBounds(limites[índice])
@@ -70,6 +74,23 @@
       } //for
     }) //then
   } //getZonas
+=======
+function CargarZonas(índice){
+
+}
+
+ function getZonas() {
+   fetch('/zona?id=1').then(function(respuesta){
+     return respuesta.json()
+   }).then(function(res){
+     if(res.status == 500) {
+       alert('Error servidor');
+     } else {
+       console.log(res);
+     } //else
+   }) //then
+ }//getZonas
+>>>>>>> 4ee89e3051783018b24cb30351ccfc46aeff75a3
 
   function getSensores(mapa) {
     fetch('/sensores').then(function(respuesta) {
@@ -84,10 +105,10 @@
             map: mapa,
             title: 'Sensor ' + JSON.stringify(i + 1)
           })
-          marcadores[i].addListener('click', function() {
+          marcadores[i].addListener('click',function(){
             console.log('Soy el sensor ' + marcadores[i].title);
           })
-        } //for
+        }//for
       } //else
     }) //then
   } //getSensores
