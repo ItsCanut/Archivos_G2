@@ -3,7 +3,6 @@ var express = require('express');
 var servidor = express();
 var path = require('path');
 var nodemailer = require('nodemailer');
-var generadorContrasenya = require('./generadorContrasenya.js');
 var puertoDefecto = 50971;
 
 //--------------------------------------------------------------
@@ -189,7 +188,7 @@ function getMedidas(peticion, respuesta) {
 // FUNCIÓN PARA ENVIAR UNA CONTRASENYA DE RECUPERACION SI EL USUARIO LA HA PERDIDO
 function enviarContrasenyaDeRecuperacion(peticion, respuesta) {
   var emailDestino = [peticion.query.email];
-  let contrasenyaNueva = generadorContrasenya.generarCodigo(6);
+  let contrasenyaNueva = generarCodigo(6);
 
   base_datos
 
@@ -241,6 +240,26 @@ function enviarContrasenyaDeRecuperacion(peticion, respuesta) {
   }) //comprobar que el usuario está en la base de datos
 
 } //enviarContrasenyaDeRecuperacion
+//-------------------------------------------------------------------------
+function generarCodigo(longitud) {
+  let caracteres = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+    'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'
+  ];
+
+  let codigoArray = [];
+  let codigo;
+
+  for (let i = 0; i < longitud; i++) {
+    codigoArray[i] = caracteres[numeroAleatorio(0, caracteres.length - 1)];
+  }
+
+  codigo = codigoArray.join("");
+  return codigo
+}
+
+function numeroAleatorio(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min
+}
 //-------------------------------------------------------------------------
 if (process.env.PORT !== undefined) {
   servidor.listen(process.env.PORT, function() {
