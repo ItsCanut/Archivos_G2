@@ -306,6 +306,131 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+  </div>
+
+
+
+
+
+
+  <div id="panelMapa" class="panel">
+    <div id="map" style="height: 100%; width: 100%;"></div>
+
+    <script>
+      var usuario = sessionStorage.getItem('Usuario');
+      if (usuario === null) {
+        window.location.href = '/paginas/InicioSesion.html';
+      }
+
+      function cerrarSesion() {
+        sessionStorage.removeItem('Usuario');
+        window.location.href = '/paginas/InicioSesion.html';
+      }
+
+      $(document).ready(function() {
+        $('a[href="#navbar-more-show"], .navbar-more-overlay').on('click', function(event) {
+          event.preventDefault();
+          $('body').toggleClass('navbar-more-show');
+          if ($('body').hasClass('navbar-more-show')) {
+            $('a[href="#navbar-more-show"]').closest('li').addClass('active');
+          } else {
+            $('a[href="#navbar-more-show"]').closest('li').removeClass('active');
+          }
+          return false;
+        });
+      });
+    </script>
+    <script>
+      var mapa;
+      var marcadores = [];
+      var zona = {};
+      var limites = [];
+      var zonas = [];
+      var poligonos = [];
+      var opacidadMapas = 0.3;
+
+
+      function iniciarMap() {
+        mapa = new google.maps.Map(document.getElementById("map"), {
+          zoom: 16,
+          center: {
+            lat: 38.9922807,
+            lng: -0.1735785
+          },
+          streetViewControl: false
+        });
+
+        mapa.setMapTypeId('hybrid');
+        getSensores(mapa);
+        getZonas(mapa);
+      } //iniciarMap
+
+      function CargarZonas(índice) {
+        poligonos[índice].setMap(mapa)
+        mapa.fitBounds(limites[índice])
+      }
+//
+      function getZonas(mapa) {
+        fetch('/zona?id=1').then(function(res) {
+          if (res.status == 404 || res.status == 500) {
+            alert('Error de servidor: No se pudo obtener la lista de Zonas')
+            window.location.href = 'InicioSesion.html'
+          } else {
+            return res.json()
+          } //else
+        }).then(function(zones) {
+          for (let i of zones) {
+            zonas.push(i);
+          }; //for
+          for (let i = 0; i < zonas.length; i++) {
+            limites[i] = new google.maps.LatLngBounds()
+            poligonos[i] = new google.maps.Polygon({
+              paths: zonas[i].vertices,
+              fillColor: zonas[i].color,
+              fillOpacity: opacidadMapas,
+              strokeColor: zonas[i].color,
+              strokeOpacity: opacidadMapas
+            }) //constructor
+            for (let k = 0; k < zonas[i].vertices.length; k++) {
+              limites[i].extend(zonas[i].vertices[k])
+            } //for
+          } //for
+        }) //then
+      } //getZonas
+
+      function getSensores(mapa) {
+        fetch('/sensores').then(function(respuesta) {
+          return respuesta.json()
+        }).then(function(res) {
+          if (res.status > 400) {
+            alert('Error de servidor: No se pudo obtener la lista de sensores');
+          } else {
+            for (let i = 0; i < res.length; i++) {
+              marcadores[i] = new google.maps.Marker({
+                position: res[i],
+                map: mapa,
+                title: 'Sensor ' + JSON.stringify(i + 1)
+              })
+              marcadores[i].addListener('click', function() {
+                console.log('Soy el sensor ' + marcadores[i].title);
+              })
+            } //for
+          } //else
+        }) //then
+      } //getSensores
+    </script>
+  </div>
+
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4CfoqowZGnOpAw3wDFvjc2im84GK_EHk&callback=iniciarMap">
+</script>
+
+
+  <div id="panelGraficas" class="panel">
+    <div id="chart_div"></div>
+  </div>
+=======
 
 
 
@@ -1133,6 +1258,7 @@ var contentString = '<div id="content">' +
             chart.draw(data, options);
         }
     </script>
+>>>>>>> 4ee89e3051783018b24cb30351ccfc46aeff75a3
 
     <script>
         function myFunction() {

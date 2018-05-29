@@ -50,7 +50,6 @@
             errorForm('Usuario o contraseña incorrecta');
           } else {
             sessionStorage.setItem('Usuario', JSON.stringify(son));
-            console.log(son.usuario.activo);
             if (son.usuario.activo == 0) {
               fetch('/volverUsuarioActivo?id=' + son.usuario.id, {
                 method: 'post'
