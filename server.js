@@ -4,6 +4,14 @@ var servidor = express();
 var path = require('path');
 var nodemailer = require('nodemailer');
 var puertoDefecto = 50971;
+var transportista = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'softfields@gmail.com', // Your email id
+    pass: 'dameLasPatatas' // Your password})
+
+  }
+});
 
 //--------------------------------------------------------------
 //  CONFIGURACION DEL SERVIDOR
@@ -190,24 +198,14 @@ function enviarContrasenyaDeRecuperacion(peticion, respuesta) {
   var emailDestino = [peticion.query.email];
   let contrasenyaNueva = generarCodigo(6);
 
-  base_datos
 
-  var transportista = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-      user: 'softfields@gmail.com', // Your email id
-      pass: 'dameLasPatatas' // Your password})
-
-    }
-  });
   let texto = "Tu nueva contraseña es: " + contrasenyaNueva;
 
   var mailOptions = {
     from: 'softfields@gmail.com', // sender address
     to: emailDestino, // list of receivers
     subject: 'Solicitud de nueva contrasenya', // Subject line
-    text: texto //, // plaintext body
-    // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
+    text: texto
   }
 
   base_datos.all('SELECT * from Usuarios WHERE email=?', peticion.query.email, function(err, row) {
@@ -260,6 +258,8 @@ function generarCodigo(longitud) {
 function numeroAleatorio(min, max) {
   return Math.floor(Math.random() * (max - min)) + min
 }
+
+//-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
 if (process.env.PORT !== undefined) {
   servidor.listen(process.env.PORT, function() {

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Opciones</title>
+    <link rel="stylesheet" type="text/css" href="../index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
+    <!-- importar fontawesome -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+    <!-- importar CSS bootstrap 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <!-- importar jquery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+    <!-- importar popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <style>
+        body {
+            overflow-x: hidden;
+            font-size: 20px;
+        }
+
+        section {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Panel lateral*/
+
+        #panel_lateral {
+            position: fixed;
+            background: #ccc;
+            z-index: 100;
+            left: -220px;
+            transition: .5s;
+        }
+
+        #panel_lateral.visible {
+            left: 0;
+        }
+
+        /*Formulario perfil*/
+
+        #formulario_perfil {
+            display: none;
+            margin: 3rem 0;
+        }
+
+        #formulario_perfil div {
+            margin: 3rem 0;
+        }
+
+        #formulario_perfil div form div {
+            text-align: left;
+        }
+
+        #formulario_perfil div form div input {
+            border-radius: 7px;
+        }
+
+        /*Formulario contraseña*/
+
+        #cambiar_contrasenya {
+            margin: 3rem 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #cambiar_contrasenya form div {
+            margin: 3rem 0;
+        }
+
+        #cambiar_contrasenya form div input {
+            border-radius: 7px;
+            text-shadow: 0;
+        }
+
+        #cambiar_contrasenya #aplicar_cambios_contra {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+
+
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo_header"><a href="lobby.html">softfields</a></h1>
+
+            <nav class="site-nav">
+                <ul>
+                    <li><a href="lobby.html"><i class="fa fa-home site-nav--icon"></i>Menu</a></li>
+                    <li><a href="datosUsuario.html"><i class="fa fa-info site-nav--icon"></i>Datos</a></li>
+                    <li><a href="RestablecerContrase%C3%B1a.html"><i class="fa fa-cog site-nav--icon"></i>Opciones</a></li>
+                    <li><a href="InicioSesion.html" onclick="cerrarSesion()"><i class="fa fa-cog site-nav--icon"></i>Cerrar Sesión</a></li>
+
+
+                </ul>
+            </nav>
+
+            <div class="menu-toggle">
+                <div class="hamburger"></div>
+            </div>
+        </div>
+    </header>
+    <!-- Fin del header -->
+    <section id="seccion_principal">
+        <div id="panel_lateral">
+            <ul>
+                <li onclick="mostrarPerfil()">Editar Perfil</li>
+                <li>Editar alarmas</li>
+                <li>Cambiar contraseña</li>
+            </ul>
+        </div>
+        <div id="editar_perfil">
+            <form id="formulario_perfil" action=aplicarLosCambios>
+                <div id="campo_nombre">
+                    Nombre
+                    <input type="text" id="form_nombre">
+                </div>
+                <div id="campo_apellidos">
+                    Apellidos
+                    <input type="text" id="form_apellidos">
+                </div>
+                <div id="campo_empresa">
+                    Empresa
+                    <input type="text" id="form_apellidos">
+                </div>
+
+            </form>
+        </div>
+        <div id="cambiar_contrasenya">
+            <form action="aplicarLosCambios">
+                <div id="campo_contra1">
+                    Introduce nueva contraseña
+                    <input type="password" id="form_contra1">
+                </div>
+                <div id="campo_contra2">
+                    Repite la contraseña
+                    <input type="password" id="form_contra2">
+                </div>
+                <div id="icono_check">Aqui va el icono</div>
+                <input id="aplicar_cambios_contra" class="btn btn-primary" type="submit" value="Aplicar cambios">
+            </form>
+        </div>
+        <div id="editar_alarmas">
+
+        </div>
+        <div><button onclick="mostrarMenu()">Hazme click pls</button></div>
+    </section>
+    <footer></footer>
+
+    <script>
+        function cerrarSesion() {
+            sessionStorage.removeItem('Usuario');
+            window.location.href = '/paginas/InicioSesion.html';
+        }
+
+        function mostrarMenu() {
+            var panel = document.getElementById('panel_lateral')
+            panel.classList.toggle('visible')
+        }
+    </script>
+</body>
+
+</html>
