@@ -1,5 +1,6 @@
 //   LIBRERIAS
 var express = require('express');
+var bodyParser = require('body-parser');
 var servidor = express();
 var path = require('path');
 var nodemailer = require('nodemailer');
@@ -18,7 +19,7 @@ var transportista = nodemailer.createTransport({
 ////
 
 servidor.use(express.static(__dirname));
-
+servidor.use(bodyParser.json());
 //codigo servidor
 //---------------------------------------------------------------
 servidor.use('/pagina_en_proceso/paginas', express.static(path.join(__dirname, 'public')))
@@ -45,6 +46,8 @@ servidor.post('/volverUsuarioActivo', turnUsuarioActivo);
 servidor.get('/recuperarContrasenya', enviarContrasenyaDeRecuperacion);
 
 servidor.get('/getMedidas', getMedidas);
+
+servidor.post('/cambioDatos', cambioDatos);
 
 //servidor.get('/lobby', procesarUsuario);
 //BASE DATOS
@@ -259,6 +262,44 @@ function numeroAleatorio(min, max) {
   return Math.floor(Math.random() * (max - min)) + min
 }
 
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
+function cambioDatos(peticion, respuesta) {
+  let datos = peticion.body
+  let status = 200;
+  let pregunta = 'UPDATE Usuarios SET ' + datos.aspectosCambiados[0] + "=" + "'" + datos.cambios[0] + "'" + ' WHERE id=' + datos.userID + ";"
+
+  if (datos.aspectosCambiados[0] != undefined) {
+    base_datos.all(pregunta, function(err) {
+      if (err) {
+        status = 500
+      }
+    })
+  }
+
+  if (datos.aspectosCambiados[1] != undefined) {
+    base_datos.all('UPDATE Usuarios SET ' + datos.aspectosCambiados[1] + "=" + "'" + datos.cambios[1] + "'" + ' WHERE id=' + datos.userID + ";",
+      function(err) {
+        if (err) {
+          status = 500
+        }
+      })
+  }
+
+  if (datos.aspectosCambiados[2] != undefined) {
+    base_datos.all('UPDATE Usuarios SET ' + datos.aspectosCambiados[2] + "=" + "'" + datos.cambios[2] + "'" + ' WHERE id=' + datos.userID + ";",
+      function(err) {
+        if (err) {
+          status = 500
+        }
+      })
+  }
+
+  setTimeout(function() {
+    respuesta.sendStatus(status);
+  }, 700);
+
+}
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
 if (process.env.PORT !== undefined) {
